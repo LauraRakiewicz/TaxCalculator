@@ -10,23 +10,23 @@ public class Output {
 
         System.out.println("Ordinary contract");
         System.out.println("basis for taxes " + TaxCalculator.income);
-        double cBasis = Taxes.colculatedBasis(TaxCalculator.income);
+        double cBasis = Contract.colculatedBasis(TaxCalculator.income);
         System.out.println("Pension tax basis " + df00.format(Taxes.t_pension));
         System.out.println("Disability tax basis " + df00.format(Taxes.t_disabled));
         System.out.println("Illness insurance basis  " + df00.format(Taxes.s_illness));
         System.out.println("Health insurance basis: " + cBasis);
-        Taxes.calculateInsurance(cBasis);
+        Contract.calculateInsurance(cBasis);
         System.out.println("Health insutance: 9% = " + df00.format(Taxes.t_health1) + " 7,75% = " + df00.format(Taxes.t_health2));
         System.out.println("Constant TaxCalculator.income tax cost " + Taxes.incomeCost);
         double taxBasis = cBasis - Taxes.incomeCost;
         double taxBasis0 = Double.parseDouble(df.format(taxBasis));
         System.out.println("Tax basis " + taxBasis + " rounded " + df.format(taxBasis0));
-        Taxes.calculateBasis(taxBasis0);
+        Contract.calculateBasis(taxBasis0);
         System.out.println("Advance for TaxCalculator.income tax 18 % = " + Taxes.advanceTax);
         System.out.println("Exempted value = " + Taxes.exemptedValue);
         double exemtedTax = Taxes.advanceTax - Taxes.exemptedValue;
         System.out.println("Exempted tax = " + df00.format(exemtedTax));
-        Taxes.calculateAdvance();
+        Contract.calculateAdvance();
         Taxes.advanceTaxOffice0 = Double.parseDouble(df.format(Taxes.advanceTaxOffice));
         System.out.println("Advance for the tax office = " + df00.format(Taxes.advanceTaxOffice) + " rounded = "
                 + df.format(Taxes.advanceTaxOffice0));
@@ -41,12 +41,12 @@ public class Output {
 
         System.out.println("CIVIL CONTRACT");
         System.out.println("Basis for taxes " + TaxCalculator.income);
-        double oBasis = Taxes.colculatedBasis(TaxCalculator.income);
+        double oBasis = Contract.colculatedBasis(TaxCalculator.income);
         System.out.println("Pension tax " + df00.format(Taxes.t_pension));
         System.out.println("Disability tax " + df00.format(Taxes.t_disabled));
         System.out.println("Illness insurance tax  " + df00.format(Taxes.s_illness));
         System.out.println("Basis for the health tax: " + oBasis);
-        Taxes.calculateInsurance(oBasis);
+        Contract.calculateInsurance(oBasis);
         System.out.println("Healt tax: 9% = " + df00.format(Taxes.t_health1) + " 7,75% = " + df00.format(Taxes.t_health2));
         Taxes.exemptedValue = 0;
         Taxes.incomeCost = (oBasis * 20) / 100;
@@ -54,11 +54,11 @@ public class Output {
         double basisTax = oBasis - Taxes.incomeCost;
         double basisTax0 = Double.parseDouble(df.format(basisTax));
         System.out.println("Basis tax " + basisTax + " rouded " + df.format(basisTax0));
-        Taxes.calculateBasis(basisTax0);
+        Contract.calculateBasis(basisTax0);
         System.out.println("Advance for TaxCalculator.income tax 18 % = " + Taxes.advanceTax);
         double taxTaken = Taxes.advanceTax;
         System.out.println("Tax taken = " + df00.format(taxTaken));
-        Taxes.calculateAdvance();
+        Contract.calculateAdvance();
         Taxes.advanceTaxOffice0 = Double.parseDouble(df.format(Taxes.advanceTaxOffice));
         System.out.println("Advance for tax office = " + df00.format(Taxes.advanceTaxOffice) + " rounded = "
                 + df.format(Taxes.advanceTaxOffice0));

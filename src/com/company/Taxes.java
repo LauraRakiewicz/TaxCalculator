@@ -15,25 +15,4 @@ public class Taxes {
     public static double exemptedValue = 46.33; // reduced value 46,33 PLN
     public static double advanceTaxOffice = 0;
     public static double advanceTaxOffice0 = 0;
-
-
-    public static void calculateAdvance() {
-        advanceTaxOffice = advanceTax - t_health2 - exemptedValue;
-    }
-
-    public static void calculateBasis(double basis) {
-        advanceTax = (basis * 18) / 100;
-    }
-
-    public static double colculatedBasis(double basis) {
-        t_pension = (basis * 9.76) / 100;
-        t_disabled = (basis * 1.5) / 100;
-        s_illness = (basis * 2.45) / 100;
-        return (basis - t_pension - t_disabled - s_illness);
-    }
-
-    public static void calculateInsurance(double basis) {
-        t_health1 = (basis * 9) / 100;
-        t_health2 = (basis * 7.75) / 100;
-    }
 }
