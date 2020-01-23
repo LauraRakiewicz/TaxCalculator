@@ -12,23 +12,8 @@ class TaxCalculator {
 
     public static void main(String[] args) {
         Output output = new Output();
-
-        try {
-            InputStreamReader isr = new InputStreamReader(System.in);
-            BufferedReader br = new BufferedReader(isr);
-
-            System.out.print("Provide income: ");
-            income = Double.parseDouble(br.readLine());
-
-            System.out.print("Contract type: (O)rdinary, (C)ivil: ");
-            contractType = br.readLine().charAt(0);
-
-
-        } catch (Exception ex) {
-            System.out.println("Incorrect value");
-            System.err.println(ex);
-            return;
-        }
+        Input input = new Input();
+        input.test();
 
         if (contractType == 'O') {
             output.ordinaryPrint();
@@ -38,6 +23,4 @@ class TaxCalculator {
             System.out.println("Unknown contract!");
         }
     }
-
-
 }
