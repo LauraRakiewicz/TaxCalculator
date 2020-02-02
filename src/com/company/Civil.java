@@ -2,6 +2,8 @@ package com.company;
 
 import java.text.DecimalFormat;
 
+import static com.company.Contract.*;
+
 public class Civil implements Command {
 
     @Override
@@ -15,29 +17,17 @@ public class Civil implements Command {
 
         System.out.println("CIVIL CONTRACT");
         System.out.println("Basis for taxes " + TaxCalculator.income);
-        double oBasis = Contract.colculatedBasis(TaxCalculator.income);
-        System.out.println("Pension tax " + df00.format(Taxes.t_pension));
-        System.out.println("Disability tax " + df00.format(Taxes.t_disabled));
-        System.out.println("Illness insurance tax  " + df00.format(Taxes.s_illness));
-        System.out.println("Basis for the health tax: " + oBasis);
-        Contract.calculateInsurance(oBasis);
-        System.out.println("Healt tax: 9% = " + df00.format(Taxes.t_health1) + " 7,75% = " + df00.format(Taxes.t_health2));
+        double sum = calculateSocialInsurance(TaxCalculator.income);
+        double oBasis = calculateHealthBasis(TaxCalculator.income, sum);
+        double health1 = calculateHealthTax1(oBasis);
+        double health2 = calculateHealthTax2(oBasis);
         Taxes.exemptedValue = 0;
         Taxes.incomeCost = (oBasis * 20) / 100;
         System.out.println("TaxCalculator.income tax cost (constant) " + Taxes.incomeCost);
-        double basisTax = oBasis - Taxes.incomeCost;
-        double basisTax0 = Double.parseDouble(df.format(basisTax));
-        System.out.println("Basis tax " + basisTax + " rouded " + df.format(basisTax0));
-        Contract.calculateBasis(basisTax0);
-        System.out.println("Advance for TaxCalculator.income tax 18 % = " + Taxes.advanceTax);
-        double taxTaken = Taxes.advanceTax;
-        System.out.println("Tax taken = " + df00.format(taxTaken));
-        Contract.calculateAdvance();
-        Taxes.advanceTaxOffice0 = Double.parseDouble(df.format(Taxes.advanceTaxOffice));
-        System.out.println("Advance for tax office = " + df00.format(Taxes.advanceTaxOffice) + " rounded = "
-                + df.format(Taxes.advanceTaxOffice0));
-        double salary = TaxCalculator.income - ((Taxes.t_pension + Taxes.t_disabled + Taxes.s_illness) + Taxes.t_health1 + Taxes.advanceTaxOffice0);
-        System.out.println();
-        System.out.println("Net salary = " + df00.format(salary));
+        double taxBasis0 = calculateTaxBasis(oBasis, Taxes.incomeCost);
+        System.out.println("Exempted value = " + Taxes.exemptedValue);
+        double advanceTax0 = calculateAdvanceTax(taxBasis0, health2, Taxes.exemptedValue);
+        calculateSalary(TaxCalculator.income, sum, health1, advanceTax0);
+
     }
 }

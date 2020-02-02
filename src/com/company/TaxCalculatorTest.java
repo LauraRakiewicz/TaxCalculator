@@ -9,14 +9,14 @@ class TaxCalculatorTest {
     }
 
     @org.junit.jupiter.api.Test
-    void calculateBasis() {
+    void calculateAdvanceTax() {
     }
 
     @org.junit.jupiter.api.Test
-    void colculatedBasis() {
+    void calculateSocialInsurance() {
     }
 
     @org.junit.jupiter.api.Test
-    void calculateInsurance() {
+    void calculateHealthTax() {
     }
 }
