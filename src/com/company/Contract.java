@@ -23,14 +23,13 @@ public class Contract {
     public static double calculateHealthTax1(double basis) {
         DecimalFormat df00 = new DecimalFormat("#.00");
         double t_health1 = (basis * 9) / 100;
-        //double t_health2 = (basis * 7.75) / 100;
         System.out.println("Health insurance: 9% = " + df00.format(t_health1));
         return t_health1;
     }
 
     public static double calculateHealthTax2(double basis) {
         DecimalFormat df00 = new DecimalFormat("#.00");
-                double t_health2 = (basis * 7.75) / 100;
+        double t_health2 = (basis * 7.75) / 100;
         System.out.println("Health insurance: 7,75% = " + df00.format(t_health2));
         return t_health2;
     }
@@ -55,11 +54,12 @@ public class Contract {
         return advanceTax0;
     }
 
-    public static void calculateSalary(double income, double sum, double health1, double advanceTax0) {
+    public static double calculateSalary(double income, double sum, double health1, double advanceTax0) {
         DecimalFormat df00 = new DecimalFormat("#.00");
         double salary = income - (sum + health1 + advanceTax0);
         System.out.println();
         System.out.println("Net salary = " + df00.format(salary));
+        return salary;
     }
 
 

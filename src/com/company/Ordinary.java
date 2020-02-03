@@ -12,21 +12,16 @@ public class Ordinary implements Command {
     }
 
     public void ordinaryPrint() {
-        DecimalFormat df00 = new DecimalFormat("#.00");
-        DecimalFormat df = new DecimalFormat("#");
-
         System.out.println("Ordinary contract");
         System.out.println("basis for taxes " + TaxCalculator.income);
         double sum = calculateSocialInsurance(TaxCalculator.income);
-        double cBasis = calculateHealthBasis(TaxCalculator.income, sum);
-        double health1 = calculateHealthTax1(cBasis);
-        double health2 = calculateHealthTax2(cBasis);
+        double oBasis = calculateHealthBasis(TaxCalculator.income, sum);
+        double health1 = calculateHealthTax1(oBasis);
+        double health2 = calculateHealthTax2(oBasis);
         System.out.println("Constant TaxCalculator.income tax cost " + Taxes.incomeCost);
-        double taxBasis0 = calculateTaxBasis(cBasis, Taxes.incomeCost);
+        double taxBasis0 = calculateTaxBasis(oBasis, Taxes.incomeCost);
         System.out.println("Exempted value = " + Taxes.exemptedValue);
         double advanceTax0 = calculateAdvanceTax(taxBasis0, health2, Taxes.exemptedValue);
-        calculateSalary(TaxCalculator.income, sum, health1, advanceTax0);
-
-
+        double salary = calculateSalary(TaxCalculator.income, sum, health1, advanceTax0);
     }
 }
