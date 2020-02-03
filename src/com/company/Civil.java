@@ -5,6 +5,10 @@ import java.text.DecimalFormat;
 import static com.company.Contract.*;
 
 public class Civil implements Command {
+    double sum;
+    double cBasis;
+    double health1;
+    double health2;
 
     @Override
     public void execute() {

@@ -1,10 +1,8 @@
 package com.company;
 
-import java.text.DecimalFormat;
-
 import static com.company.Contract.*;
 
-public class Ordinary implements Command {
+public class Ordinary extends ContractType implements Command {
 
     @Override
     public void execute() {
@@ -14,14 +12,19 @@ public class Ordinary implements Command {
     public void ordinaryPrint() {
         System.out.println("Ordinary contract");
         System.out.println("basis for taxes " + TaxCalculator.income);
-        double sum = calculateSocialInsurance(TaxCalculator.income);
-        double oBasis = calculateHealthBasis(TaxCalculator.income, sum);
-        double health1 = calculateHealthTax1(oBasis);
-        double health2 = calculateHealthTax2(oBasis);
+        commonSet();
+
         System.out.println("Constant TaxCalculator.income tax cost " + Taxes.incomeCost);
-        double taxBasis0 = calculateTaxBasis(oBasis, Taxes.incomeCost);
+        double taxBasis0 = calculateTaxBasis(this.getBasis(), Taxes.incomeCost);
         System.out.println("Exempted value = " + Taxes.exemptedValue);
-        double advanceTax0 = calculateAdvanceTax(taxBasis0, health2, Taxes.exemptedValue);
-        double salary = calculateSalary(TaxCalculator.income, sum, health1, advanceTax0);
+        double advanceTax0 = calculateAdvanceTax(taxBasis0, this.getHealth2(), Taxes.exemptedValue);
+        double salary = calculateSalary(TaxCalculator.income, this.getSum(), this.getHealth1(), advanceTax0);
+    }
+
+    public void commonSet() {
+        this.setSum(calculateSocialInsurance(TaxCalculator.income));
+        this.setBasis(calculateHealthBasis(TaxCalculator.income, this.getSum()));
+        this.setHealth1(calculateHealthTax1(this.getBasis()));
+        this.setHealth2(calculateHealthTax2(this.getBasis()));
     }
 }
