@@ -2,7 +2,7 @@ package com.company;
 
 import static com.company.Contract.*;
 
-public class Ordinary extends ContractType implements Command {
+public class Ordinary extends Taxes implements Command {
 
     @Override
     public void execute() {
@@ -13,7 +13,6 @@ public class Ordinary extends ContractType implements Command {
         System.out.println("Ordinary contract");
         System.out.println("basis for taxes " + TaxCalculator.income);
         commonSet();
-
         System.out.println("Constant TaxCalculator.income tax cost " + Taxes.incomeCost);
         double taxBasis0 = calculateTaxBasis(this.getBasis(), Taxes.incomeCost);
         System.out.println("Exempted value = " + Taxes.exemptedValue);

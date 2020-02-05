@@ -4,11 +4,7 @@ import java.text.DecimalFormat;
 
 import static com.company.Contract.*;
 
-public class Civil implements Command {
-    double sum;
-    double cBasis;
-    double health1;
-    double health2;
+public class Civil extends Taxes implements Command {
 
     @Override
     public void execute() {
@@ -18,16 +14,20 @@ public class Civil implements Command {
     public void civilPrint() {
         System.out.println("CIVIL CONTRACT");
         System.out.println("Basis for taxes " + TaxCalculator.income);
-        double sum = calculateSocialInsurance(TaxCalculator.income);
-        double cBasis = calculateHealthBasis(TaxCalculator.income, sum);
-        double health1 = calculateHealthTax1(cBasis);
-        double health2 = calculateHealthTax2(cBasis);
+        commonSet();
         Taxes.exemptedValue = 0;
-        Taxes.incomeCost = (cBasis * 20) / 100;
+        Taxes.incomeCost = (this.getBasis() * 20) / 100;
         System.out.println("TaxCalculator.income tax cost (constant) " + Taxes.incomeCost);
-        double taxBasis0 = calculateTaxBasis(cBasis, Taxes.incomeCost);
+        double taxBasis0 = calculateTaxBasis(this.getBasis(), Taxes.incomeCost);
         System.out.println("Exempted value = " + Taxes.exemptedValue);
-        double advanceTax0 = calculateAdvanceTax(taxBasis0, health2, Taxes.exemptedValue);
-        double salary = calculateSalary(TaxCalculator.income, sum, health1, advanceTax0);
+        double advanceTax0 = calculateAdvanceTax(taxBasis0, this.getHealth2(), Taxes.exemptedValue);
+        double salary = calculateSalary(TaxCalculator.income, this.getSum(), this.getHealth1(), advanceTax0);
+    }
+
+    public void commonSet() {
+        this.setSum(calculateSocialInsurance(TaxCalculator.income));
+        this.setBasis(calculateHealthBasis(TaxCalculator.income, this.getSum()));
+        this.setHealth1(calculateHealthTax1(this.getBasis()));
+        this.setHealth2(calculateHealthTax2(this.getBasis()));
     }
 }
